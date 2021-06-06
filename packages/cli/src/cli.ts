@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import * as path from 'path';
 import * as ts from 'typescript';
-import * as YAML from 'yamljs';
+import * as YAML from 'js-yaml';
 import * as yargs from 'yargs';
 import { Config, RoutesConfig, SpecConfig, Tsoa } from '@tsoa/runtime';
 import { MetadataGenerator } from './metadataGeneration/metadataGenerator';
@@ -50,7 +50,7 @@ const getConfig = async (configPath = 'tsoa.json'): Promise<Config> => {
   try {
     const ext = path.extname(configPath);
     if (ext === '.yaml' || ext === '.yml') {
-      config = YAML.load(configPath);
+      config = YAML.load(configPath) as Config;
     } else {
       const configRaw = await fsReadFile(`${workingDir}/${configPath}`);
       config = JSON.parse(configRaw.toString('utf8'));

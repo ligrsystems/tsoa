@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import * as YAML from 'yamljs';
+import * as YAML from 'js-yaml';
 import { ExtendedSpecConfig } from '../cli';
 import { MetadataGenerator } from '../metadataGeneration/metadataGenerator';
 import { Tsoa, Swagger } from '@tsoa/runtime';
@@ -38,7 +38,7 @@ export const generateSpec = async (
 
   let data = JSON.stringify(spec, null, '\t');
   if (swaggerConfig.yaml) {
-    data = YAML.stringify(JSON.parse(data), 10);
+    data = YAML.dump(JSON.parse(data));
   }
 
   const outputPath = getSwaggerOutputPath(swaggerConfig);
